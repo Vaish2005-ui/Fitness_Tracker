@@ -16,66 +16,32 @@ namespace DDOOCP_Assignment
     public partial class LoginForm : Form
     {
         string connString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\owner\Desktop\ddoocp\Fitness\Fitness.mdb;";
-        OleDbConnection conn;
-        private int failedAttempts = 0;
         private const int maxAttempts = 3;
+        private Dictionary<string, int> failedLoginAttempts = new Dictionary<string, int>();
+        private string _testUser = "";
 
         public LoginForm(string user)
         {
             InitializeComponent();
+            _testUser = user.ToLower();
+        }
 
-        }
-        private void button1_Click(object sender, EventArgs e)
+        public bool AttemptLogin(string username, string password)
         {
-            RegistrationForm registrationForm = new RegistrationForm();
-            registrationForm.Show();
-            this.Hide();
-        }
-        private bool ValidateUser(string enteredUsername, string enteredPassword)
-        {
+            username = username.Trim().ToLower();
+            password = password.Trim();
+
+            if (failedLoginAttempts.ContainsKey(username) && failedLoginAttempts[username] >= maxAttempts)
+            {
+                return false;
+            }
+
             using (OleDbConnection conn = new OleDbConnection(connString))
             {
                 conn.Open();
-                string query = "SELECT Username, Password FROM Users WHERE LCase(Username) = LCase(@Username)";
 
+                string query = "SELECT COUNT(*) FROM Users WHERE Username = @Username AND Password = @Password";
                 using (OleDbCommand cmd = new OleDbCommand(query, conn))
-                {
-                    cmd.Parameters.AddWithValue("@Username", enteredUsername.ToLower());
-
-                    using (OleDbDataReader reader = cmd.ExecuteReader())
-                    {
-                        if (reader.Read())
-                        {
-                            string storedPassword = reader["Password"].ToString();
-
-                            if (storedPassword == enteredPassword)
-                            {
-                                return true;
-                            }
-                        }
-                    }
-                }
-            }
-
-            return false;
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            if (failedAttempts >= maxAttempts)
-            {
-                MessageBox.Show("Too many failed attempts! Try again later.", "Account Locked", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-            string username = txtUsername.Text.Trim().ToLower();
-            string password = txtPassword.Text.Trim();
-
-            using (OleDbConnection conn = new OleDbConnection(connString))
-            {
-                conn.Open();
-
-                string loginQuery = "SELECT COUNT(*) FROM Users WHERE Username = @Username AND Password = @";
-                using (OleDbCommand cmd = new OleDbCommand(loginQuery, conn))
                 {
                     cmd.Parameters.AddWithValue("@Username", username);
                     cmd.Parameters.AddWithValue("@Password", password);
@@ -84,31 +50,79 @@ namespace DDOOCP_Assignment
 
                     if (userFound > 0)
                     {
-                        lblMessage.Text = $"✅ Welcome, {username}!";
-                        MessageBox.Show("Login Successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                        DasboardForm dasboardForm = new DasboardForm(username);
-                        dasboardForm.Show();
-                        this.Hide();
+                        return true;
                     }
                     else
                     {
-                        failedAttempts++;
-                        lblMessage.Text = $"❌ Incorrect username or password! {maxAttempts - failedAttempts} attempts left.";
+                        if (!failedLoginAttempts.ContainsKey(username))
+                            failedLoginAttempts[username] = 0;
 
-                        if (failedAttempts >= maxAttempts)
-                        {
-                            MessageBox.Show("Too many failed attempts! Try again later.", "Account Locked", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        }
+                        failedLoginAttempts[username]++;
+                        return false;
                     }
                 }
             }
         }
 
-        private void LoginForm_Load(object sender, EventArgs e)
+        public bool IsAccountLocked
         {
-
+            get
+            {
+                return failedLoginAttempts.ContainsKey(_testUser) && failedLoginAttempts[_testUser] >= maxAttempts;
+            }
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            string username = txtUsername.Text.Trim().ToLower();
+            string password = txtPassword.Text.Trim();
+
+            if (IsAccountLocked)
+            {
+                MessageBox.Show("Too many failed attempts for this account! Try again later.", "Account Locked", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            bool success = AttemptLogin(username, password);
+
+            if (success)
+            {
+                lblMessage.Text = $" Welcome, {username}!";
+                MessageBox.Show("Login Successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                DasboardForm dasboardForm = new DasboardForm(username);
+                dasboardForm.Show();
+                this.Hide();
+            }
+            else
+            {
+                int remainingAttempts = maxAttempts - failedLoginAttempts[username];
+                lblMessage.Text = $" Incorrect username or password! {remainingAttempts} attempts left.";
+
+                if (remainingAttempts <= 0)
+                {
+                    MessageBox.Show("Too many failed attempts for this account! Try again later.", "Account Locked", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            RegistrationForm registrationForm = new RegistrationForm();
+            registrationForm.Show();
+            this.Hide();
+        }
+
+        private void LoginForm_Load(object sender, EventArgs e) { }
+}
+
+
+
+
+
+
+
+        
     }
 
-}
+

@@ -299,6 +299,7 @@
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "SetGoalForm";
             this.Text = "SetGoalForm";
+            this.Load += new System.EventHandler(this.SetGoalForm_Load);
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();

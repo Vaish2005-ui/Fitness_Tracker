@@ -196,5 +196,9 @@ namespace DDOOCP_Assignment
             this.Hide();
         }
 
+        private void SetGoalForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

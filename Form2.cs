@@ -163,5 +163,10 @@ namespace DDOOCP_Assignment
         {
 
         }
+
+        private void DasboardForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

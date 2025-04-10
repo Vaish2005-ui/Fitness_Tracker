@@ -316,6 +316,7 @@
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "DasboardForm";
             this.Text = "DasboardForm";
+            this.Load += new System.EventHandler(this.DasboardForm_Load);
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();

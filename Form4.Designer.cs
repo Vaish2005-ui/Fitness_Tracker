@@ -82,7 +82,7 @@
             this.lblCalories.AutoSize = true;
             this.lblCalories.BackColor = System.Drawing.Color.White;
             this.lblCalories.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.lblCalories.Location = new System.Drawing.Point(611, 501);
+            this.lblCalories.Location = new System.Drawing.Point(591, 501);
             this.lblCalories.Name = "lblCalories";
             this.lblCalories.Size = new System.Drawing.Size(0, 32);
             this.lblCalories.TabIndex = 42;
@@ -350,6 +350,7 @@
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "RecordActivityForm";
             this.Text = "RecordActivityForm";
+            this.Load += new System.EventHandler(this.RecordActivityForm_Load);
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
@@ -360,26 +361,26 @@
 
         #endregion
 
-        private System.Windows.Forms.Label lblWelcome;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.Label lblMetric3;
-        private System.Windows.Forms.Label lblMetric2;
-        private System.Windows.Forms.Label lblMetric1;
-        private System.Windows.Forms.TextBox txtMetric1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox txtMetric3;
-        private System.Windows.Forms.TextBox txtMetric2;
-        private System.Windows.Forms.Label lblCalories;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.PictureBox pictureBox3;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Label label1;
+        public System.Windows.Forms.Label lblWelcome;
+        public System.Windows.Forms.Label label2;
+        public System.Windows.Forms.ComboBox comboBox1;
+        public System.Windows.Forms.Label lblMetric3;
+        public System.Windows.Forms.Label lblMetric2;
+        public System.Windows.Forms.Label lblMetric1;
+        public System.Windows.Forms.TextBox txtMetric1;
+        public System.Windows.Forms.Button button1;
+        public System.Windows.Forms.TextBox txtMetric3;
+        public System.Windows.Forms.TextBox txtMetric2;
+        public System.Windows.Forms.Label lblCalories;
+        public System.Windows.Forms.Label label6;
+        public System.Windows.Forms.Panel panel4;
+        public System.Windows.Forms.PictureBox pictureBox3;
+        public System.Windows.Forms.Button button5;
+        public System.Windows.Forms.Button button4;
+        public System.Windows.Forms.Label label3;
+        public System.Windows.Forms.Button button3;
+        public System.Windows.Forms.Button button2;
+        public System.Windows.Forms.Button button6;
+        public System.Windows.Forms.Label label1;
     }
 }

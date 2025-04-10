@@ -1,4 +1,6 @@
-﻿namespace DDOOCP_Assignment
+﻿using System.Security.Cryptography.X509Certificates;
+
+namespace DDOOCP_Assignment
 {
     partial class RegistrationForm
     {
@@ -303,22 +305,22 @@
 
         #endregion
 
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button btnRegister;
-        private System.Windows.Forms.Button btnCancel;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox txtUsername;
-        private System.Windows.Forms.TextBox txtPassword;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox txtConfirmPass;
-        private System.Windows.Forms.TextBox txtEmail;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox txtPhone;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.PictureBox pictureBox2;
-        private System.Windows.Forms.Label label8;
+        public System.Windows.Forms.PictureBox pictureBox1;
+        public System.Windows.Forms.Label label1;
+        public System.Windows.Forms.Button btnRegister;
+        public System.Windows.Forms.Button btnCancel;
+        public System.Windows.Forms.Label label6;
+        public System.Windows.Forms.TextBox txtUsername;
+        public System.Windows.Forms.TextBox txtPassword;
+        public System.Windows.Forms.Label label2;
+        public System.Windows.Forms.Label label3;
+        public System.Windows.Forms.TextBox txtConfirmPass;
+        public System.Windows.Forms.TextBox txtEmail;
+        public System.Windows.Forms.Label label5;
+        public System.Windows.Forms.Label label4;
+        public System.Windows.Forms.TextBox txtPhone;
+        public System.Windows.Forms.Label label7;
+        public System.Windows.Forms.PictureBox pictureBox2;
+        public System.Windows.Forms.Label label8;
     }
 }

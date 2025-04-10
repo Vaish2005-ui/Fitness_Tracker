@@ -125,6 +125,11 @@ namespace DDOOCP_Assignment
                     lblMetric3.Text = "Intensity (1-10):";
                     break;
             }
+            txtMetric1.Clear();
+            txtMetric2.Clear();
+            txtMetric3.Clear();
+            lblCalories.Text = ""; // Optional: clear the calories label too
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -149,7 +154,7 @@ namespace DDOOCP_Assignment
                 : selectedItem;
 
             double caloriesBurned = CalculateCalories(selectedActivity, metric1, metric2, metric3);
-            lblCalories.Text = $"Calories Burned: {caloriesBurned:0.00} kcal";
+            lblCalories.Text = $"{caloriesBurned:0.00} kcal";
 
             SaveActivityToDatabase(selectedActivity, metric1, metric2, metric3, caloriesBurned);
         }
@@ -169,7 +174,7 @@ namespace DDOOCP_Assignment
                 case "Jump Rope":
                     return (metric1 * 0.2) + (metric2 * 12) + (metric3 * 0.2);
                 case "Yoga":
-                    return (metric1 * metric2) + (metric3 * 2);
+                    return (metric1 * metric2) * (metric3 / 10.0);
                 default:
                     return 0;
             }
@@ -201,12 +206,16 @@ namespace DDOOCP_Assignment
 
                         if (rowsAffected > 0)
                         {
-                            MessageBox.Show("Activity saved successfully!", "Success",
-                                          MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            MessageBox.Show($"Activity saved successfully!\n\n" +
+                            $"Activity: {activity}\n" +
+                            $"Calories Burned: {caloriesBurned:F2} kcal",
+                            "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
 
                             // Refresh the activities list
                             comboBox1.Items.Clear();
                             LoadActivities();
+                            
                             
                         }
                     }
@@ -264,6 +273,9 @@ namespace DDOOCP_Assignment
             }
         }
 
-      
+        private void RecordActivityForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
